@@ -103,11 +103,18 @@
     </q-page-container>
     <q-footer>
       <div class="q-pa-none">
+        <q-btn
+          color="negative"
+          size="sm"
+          label="ALARMS"
+          @click="isAlarmListOpen = !isAlarmListOpen"
+        />
         <q-table
+          v-if="isAlarmListOpen"
           card-class="bg-grey-10 text-red glossy"
           table-class="text-grey-2"
           dense
-          title="Alarms"
+          title=""
           :data="data"
           :columns="columns"
           row-key="name"
@@ -125,6 +132,7 @@ export default {
   name: "MainLayout",
   data() {
     return {
+      isAlarmListOpen: false,
       columns: [
         {
           name: "start",
