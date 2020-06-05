@@ -34,8 +34,8 @@
         <q-item-section avatar>
           <q-avatar size="lg" color="blue" text-color="white"
             >{{ CurrentUserFullname.getInitials() }}
-            <q-badge v-if="isDisconnected" color="red" floating>C</q-badge>
-            <q-badge v-else color="lime" floating>D</q-badge>
+            <q-badge v-if="isDisconnected" color="red" floating>D</q-badge>
+            <q-badge v-else color="lime" floating>C</q-badge>
           </q-avatar>
         </q-item-section>
 
@@ -92,7 +92,9 @@
             <q-icon :name="item.icon" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>{{ item.title }}</q-item-label>
+            <q-item-label>
+              {{ item.title }}
+            </q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
@@ -101,26 +103,18 @@
     <q-page-container>
       <router-view />
     </q-page-container>
-    <q-footer>
-      <div class="q-pa-none">
+    <q-footer class="transparent">
+      <div class="q-pa-none  ">
         <q-btn
-          color="negative"
           size="sm"
-          label="ALARMS"
+          color="negative"
+          icon="notifications"
+          label="ALARM LIST"
+          class="glossy"
+          rounded
           @click="isAlarmListOpen = !isAlarmListOpen"
         />
-        <q-table
-          v-if="isAlarmListOpen"
-          card-class="bg-grey-10 text-red glossy"
-          table-class="text-grey-2"
-          dense
-          title=""
-          :data="data"
-          :columns="columns"
-          row-key="name"
-          dark
-          color="blue"
-        />
+        <alarmlist v-if="isAlarmListOpen"></alarmlist>
       </div>
     </q-footer>
   </q-layout>
@@ -133,98 +127,6 @@ export default {
   data() {
     return {
       isAlarmListOpen: false,
-      columns: [
-        {
-          name: "start",
-          required: true,
-          label: "Start",
-          align: "left",
-          field: "start",
-          format: val => `${val}`,
-          sortable: true
-        },
-        {
-          name: "systemname",
-          align: "left",
-          label: "System Name",
-          field: "systemname",
-          sortable: true
-        },
-        {
-          name: "devicename",
-          label: "Device Name",
-          field: "devicename",
-          align: "left",
-          sortable: true
-        },
-        {
-          name: "location",
-          label: "Location",
-          field: "location",
-          align: "left",
-          sortable: true
-        },
-        {
-          name: "message",
-          label: "Message",
-          field: "message",
-          align: "left",
-          sortable: true
-        },
-        {
-          name: "ackdate",
-          label: "Acknowledge Date",
-          field: "ackdate",
-          align: "left",
-          sortable: true
-        },
-        {
-          name: "ackby",
-          label: "Acknowledge By",
-          field: "ackby",
-          align: "left",
-          sortable: true
-        },
-        {
-          name: "enddate",
-          label: "End Date",
-          field: "enddate",
-          align: "left",
-          sortable: true
-        },
-        {
-          name: "status",
-          label: "Status",
-          field: "status",
-          align: "right",
-          sortable: true
-        }
-      ],
-      data: [
-        {
-          start: "2012-04-23T18:25:43.511Z",
-          systemname: "Ventilation",
-          devicename: "JF1",
-          location: "T5",
-          message: "General Fault",
-          ackdate: "2012-04-23T18:25:43.511Z",
-          ackby: "Master User",
-          enddate: "2012-04-23T18:25:43.511Z",
-          status: "TAKEN"
-        },
-        {
-          start: "2012-05-23T18:25:43.511Z",
-          systemname: "Lighting",
-          devicename: "Luminance1",
-          location: "T5",
-          message: "No Energy",
-          ackdate: "2012-04-23T18:25:43.511Z",
-          ackby: "Master User",
-          enddate: "2012-04-23T18:25:43.511Z",
-          status: "WAITING"
-        }
-      ],
-
       leftDrawerOpen: false,
       loginWindowOpen: true,
       menuitems: [
@@ -274,7 +176,8 @@ export default {
     };
   },
   components: {
-    logincard: require("components/LoginCard").default
+    logincard: require("components/LoginCard").default,
+    alarmlist: require("components/AlarmList").default
   },
   computed: {
     ...mapGetters("auth", [

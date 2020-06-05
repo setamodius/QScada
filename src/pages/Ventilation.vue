@@ -9,7 +9,7 @@
           class="tunnel-item tunnel-item-road"
           style="background-color:#2D2C31"
         >
-          <svg width="100%" height="%100">
+          <svg width="100%" height="100%">
             <line
               x1="0"
               y1="2%"
@@ -47,10 +47,24 @@
           <jetfan fanname="JF3"></jetfan>
         </div>
         <div class="tunnel-item tunnel-item-14 mystyle">
-          <jetfan fanname="JF4"></jetfan>
+          <jetfan
+            fanname="JF4"
+            v-bind:isTurningRight="true"
+            v-bind:isTurningLeft="false"
+            v-bind:isError="true"
+            v-bind:isLeftSensor="false"
+            v-bind:isRightSensor="false"
+          ></jetfan>
         </div>
         <div class="tunnel-item tunnel-item-21 mystyle">
-          <jetfan fanname="JF5" isError="true"></jetfan>
+          <jetfan
+            fanname="JF5"
+            v-bind:isTurningRight="true"
+            v-bind:isTurningLeft="false"
+            v-bind:isError="false"
+            v-bind:isLeftSensor="false"
+            v-bind:isRightSensor="true"
+          ></jetfan>
         </div>
         <div class="tunnel-item tunnel-item-22 mystyle">
           <jetfan fanname="JF6"></jetfan>
