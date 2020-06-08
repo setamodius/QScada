@@ -15,7 +15,7 @@ import { latLng, icon } from "leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 export default {
-  name: "MiddleVoltage",
+  name: "MediumVoltage",
   components: {
     LMap,
     LTileLayer,

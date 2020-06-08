@@ -136,9 +136,9 @@ export default {
           link: "/"
         },
         {
-          title: "Middle Voltage",
+          title: "Medium Voltage",
           icon: "power",
-          link: "/middlevoltage"
+          link: "/mediumvoltage"
         },
         {
           title: "Lighting",

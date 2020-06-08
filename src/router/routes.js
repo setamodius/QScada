@@ -9,9 +9,9 @@ const routes = [
         component: () => import("pages/Dashboard.vue")
       },
       {
-        path: "/middlevoltage",
-        name: "Middle Voltage",
-        component: () => import("pages/MiddleVoltage.vue")
+        path: "/mediumvoltage",
+        name: "Medium Voltage",
+        component: () => import("pages/MediumVoltage.vue")
       },
       {
         path: "/lighting",
