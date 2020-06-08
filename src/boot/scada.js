@@ -58,6 +58,7 @@ export class ScadaClient {
         isconnected: true
       });
       client.subscribe("MQTT/#", function() {});
+      client.subscribe("MATP/#", function() {});
       client.subscribe(
         "Scada/to/" + this.options.clientid + "/from/+/+/+/+",
         function() {}
@@ -87,7 +88,6 @@ export class ScadaClient {
     var workerlist = {};
     this.workers = workerlist;
     client.on("message", function(topic, message) {
-      console.log(topic);
       var parsedtag = topic.split("/");
       if (parsedtag[0] === "MQTT") {
         var worker = parsedtag[1].split("-")[0];
@@ -115,6 +115,19 @@ export class ScadaClient {
           var uid = parsedtag[7];
           self.innerbus.$emit("RpcResult", {
             uid,
+            message: JSON.parse(message)
+          });
+        }
+      }
+      //MATP/Ventilation/Jetfan/T4KJF01/IsFailed/Online
+      if (
+        parsedtag[0] === "MATP" &&
+        parsedtag.length == 6 &&
+        parsedtag[5] === "Online"
+      ) {
+        if (message.length != 0) {
+          self.innerbus.$emit("TagChanged", {
+            target: topic,
             message: JSON.parse(message)
           });
         }

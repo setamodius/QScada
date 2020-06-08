@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import { bus } from "../boot/scadainit";
 import { client } from "../boot/scadainit";
 import auth from "./store-auth";
+import scadadata from "./store-scadadata";
 import { Loading, QSpinnerGears } from "quasar";
 import { Notify } from "quasar";
 
@@ -39,6 +40,9 @@ const authPlugin = Store => {
       }
     }
   });
+  bus.$on("TagChanged", data => {
+    Store.commit("scadadata/tagChanged", data);
+  });
   bus.$on("ErrorReceived", error => {
     Notify.create({
       message: error.error,
@@ -62,7 +66,8 @@ const authPlugin = Store => {
 export default function() {
   const Store = new Vuex.Store({
     modules: {
-      auth
+      auth,
+      scadadata
     },
     plugins: [authPlugin],
     strict: process.env.DEV

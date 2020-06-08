@@ -107,6 +107,7 @@ export default {
     isLeftSensor: Boolean,
     isRightSensor: Boolean
   },
+
   data: function() {
     return {
       width: 0,

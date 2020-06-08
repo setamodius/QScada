@@ -2,7 +2,9 @@
   <q-page class="standartbackcolor">
     <div class="main-container ">
       <div class=" main-item main-top  ">
-        <h4>T5 TUNNEL</h4>
+        <h4>
+          T5 TUNNEL
+        </h4>
       </div>
       <div class="tunnel-container main-item main-middle ">
         <div
@@ -49,21 +51,29 @@
         <div class="tunnel-item tunnel-item-14 mystyle">
           <jetfan
             fanname="JF4"
-            v-bind:isTurningRight="true"
-            v-bind:isTurningLeft="false"
-            v-bind:isError="true"
-            v-bind:isLeftSensor="false"
-            v-bind:isRightSensor="false"
+            :isTurningRight="
+              getOnlineValue[
+                'MATP/Ventilation/Jetfan/T4KJF04/IsTurningRight/Online'
+              ].Value
+            "
+            :isTurningLeft="
+              getOnlineValue[
+                'MATP/Ventilation/Jetfan/T4KJF04/IsTurningLeft/Online'
+              ].Value
+            "
+            :isError="false"
+            :isLeftSensor="false"
+            :isRightSensor="false"
           ></jetfan>
         </div>
         <div class="tunnel-item tunnel-item-21 mystyle">
           <jetfan
             fanname="JF5"
-            v-bind:isTurningRight="true"
-            v-bind:isTurningLeft="false"
-            v-bind:isError="false"
-            v-bind:isLeftSensor="false"
-            v-bind:isRightSensor="true"
+            :isTurningRight="true"
+            :isTurningLeft="false"
+            :isError="false"
+            :isLeftSensor="false"
+            :isRightSensor="true"
           ></jetfan>
         </div>
         <div class="tunnel-item tunnel-item-22 mystyle">
@@ -104,6 +114,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Ventilation",
   data() {
@@ -113,6 +124,9 @@ export default {
   },
   components: {
     jetfan: require("components/scada/Jetfan").default
+  },
+  computed: {
+    ...mapGetters("scadadata", ["getOnlineValue"])
   }
 };
 </script>
