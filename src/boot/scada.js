@@ -132,6 +132,24 @@ export class ScadaClient {
           });
         }
       }
+      if (
+        parsedtag[0] === "MATP" &&
+        parsedtag.length == 6 &&
+        parsedtag[5] === "Online"
+      ) {
+        if (message.length != 0) {
+          self.innerbus.$emit("VDChanged", {
+            virtualdevice: [
+              parsedtag[0],
+              parsedtag[1],
+              parsedtag[2],
+              parsedtag[3]
+            ].join("/"),
+            property: parsedtag[4],
+            message: JSON.parse(message)
+          });
+        }
+      }
     });
   }
 

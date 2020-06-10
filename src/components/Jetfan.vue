@@ -42,13 +42,13 @@
           style="stroke-linejoin:round;stroke-width:.26458px;stroke:#000"
         />
         <path
-          v-if="leftArrorVisibility"
+          v-if="leftArrowVisibility"
           class="runcolor"
           d="m 18.520835,2.6458332 v 2.6458333 h 3.96875 v 2.6458333 h -3.96875 V 10.583333 L 13.229169,6.6145832 Z"
           style="stroke-linejoin:round;stroke-width:.26458px;stroke:#000"
         />
         <path
-          v-if="rightArrorVisibility"
+          v-if="rightArrowVisibility"
           class="runcolor"
           d="m 18.520835,2.6458333 3.96875,3.96875 -3.96875,3.9687497 0,-2.645833 -5.291666,-2e-7 V 5.2916665 l 5.291666,2e-7 z"
           style="stroke-linejoin:round;stroke-width:.26458px;stroke:#000"
@@ -66,7 +66,7 @@
           />
         </g>
         <path
-          v-if="isError"
+          v-if="errorIconVisibility"
           class="errorcolor"
           d="m 14.552085,2.6458332 h 6.614584 v 7.9374998 h -6.614584 z"
           style="stroke-linejoin:round;stroke-width:.26458px;stroke:#000"
@@ -96,16 +96,12 @@
 </template>
 <script>
 import VueDraggableResizable from "vue-draggable-resizable";
-
+import { has } from "../boot/scadainit";
 export default {
-  name: "jetfan",
+  name: "Jetfan",
   props: {
     fanname: String,
-    isError: Boolean,
-    isTurningLeft: Boolean,
-    isTurningRight: Boolean,
-    isLeftSensor: Boolean,
-    isRightSensor: Boolean
+    virtualdevice: Object
   },
 
   data: function() {
@@ -113,7 +109,19 @@ export default {
       width: 0,
       height: 0,
       x: 0,
-      y: 0
+      y: 0,
+
+      isError: false,
+      isTurningLeft: false,
+      isTurningRight: false,
+      isLeftSensor: false,
+      isRightSensor: false,
+
+      leftArrowVisibility: false,
+      rightArrowVisibility: false,
+      pauseIconVisibility: true,
+      errorIconVisibility: false,
+      fanColor: "idlecolor"
     };
   },
   methods: {
@@ -128,22 +136,41 @@ export default {
       this.y = y;
     }
   },
-  computed: {
-    leftArrorVisibility: function() {
-      return !this.isError && this.isTurningLeft && !this.isTurningRight;
-    },
-    rightArrorVisibility: function() {
-      return !this.isError && !this.isTurningLeft && this.isTurningRight;
-    },
-    pauseIconVisibility: function() {
-      return !this.isError && !this.isTurningLeft && !this.isTurningRight;
-    },
-    fanColor: function() {
-      return this.isError
-        ? "errorcolor"
-        : !this.isError && !this.isTurningLeft && !this.isTurningRight
-        ? "idlecolor"
-        : "runcolor";
+  watch: {
+    virtualdevice: {
+      // watch it
+      deep: true,
+      immediate: true,
+      handler() {
+        if (has(this.virtualdevice, "IsFailed.Value")) {
+          this.isError = this.virtualdevice.IsFailed.Value;
+        }
+        if (has(this.virtualdevice, "IsTurningLeft.Value")) {
+          this.isTurningLeft = this.virtualdevice.IsTurningLeft.Value;
+        }
+        if (has(this.virtualdevice, "IsTurningRight.Value")) {
+          this.isTurningRight = this.virtualdevice.IsTurningRight.Value;
+        }
+        if (has(this.virtualdevice, "IsLeftSensor.Value")) {
+          this.isLeftSensor = this.virtualdevice.IsLeftSensor.Value;
+        }
+        if (has(this.virtualdevice, "IsRightSensor.Value")) {
+          this.isRightSensor = this.virtualdevice.IsRightSensor.Value;
+        }
+        this.errorIconVisibility = this.isError;
+
+        this.leftArrowVisibility =
+          !this.isError && this.isTurningLeft && !this.isTurningRight;
+        this.rightArrowVisibility =
+          !this.isError && !this.isTurningLeft && this.isTurningRight;
+        this.pauseIconVisibility =
+          !this.isError && !this.isTurningLeft && !this.isTurningRight;
+        this.fanColor = this.isError
+          ? "errorcolor"
+          : !this.isError && !this.isTurningLeft && !this.isTurningRight
+          ? "idlecolor"
+          : "runcolor";
+      }
     }
   }
 };
