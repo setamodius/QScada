@@ -5,7 +5,7 @@
       table-class="text-grey-2"
       dense
       title=""
-      :data="data"
+      :data="getAlarmList"
       :columns="columns"
       row-key="name"
       dark
@@ -15,6 +15,9 @@
   </div>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex";
+import { date } from "quasar";
+import { alarmstatus } from "../boot/scadainit";
 export default {
   name: "AlarmList",
 
@@ -30,7 +33,7 @@ export default {
           label: "Start",
           align: "left",
           field: "start",
-          format: val => `${val}`,
+          format: val => `${date.formatDate(val, "DD-MM-YYYY HH:mm:ss")}`,
           sortable: true
         },
         {
@@ -66,6 +69,7 @@ export default {
           label: "Acknowledge Date",
           field: "ackdate",
           align: "left",
+          format: val => `${date.formatDate(val, "DD-MM-YYYY HH:mm:ss")}`,
           sortable: true
         },
         {
@@ -80,6 +84,7 @@ export default {
           label: "End Date",
           field: "enddate",
           align: "left",
+          format: val => `${date.formatDate(val, "DD-MM-YYYY HH:mm:ss")}`,
           sortable: true
         },
         {
@@ -87,36 +92,17 @@ export default {
           label: "Status",
           field: "status",
           align: "right",
+          format: val => `${alarmstatus(val)}`,
           sortable: true
-        }
-      ],
-      data: [
-        {
-          start: "2012-04-23T18:25:43.511Z",
-          systemname: "Ventilation",
-          devicename: "JF1",
-          location: "T5",
-          message: "General Fault",
-          ackdate: "2012-04-23T18:25:43.511Z",
-          ackby: "Master User",
-          enddate: "2012-04-23T18:25:43.511Z",
-          status: "TAKEN"
-        },
-        {
-          start: "2012-05-23T18:25:43.511Z",
-          systemname: "Lighting",
-          devicename: "Luminance1",
-          location: "T5",
-          message: "No Energy",
-          ackdate: "2012-04-23T18:25:43.511Z",
-          ackby: "Master User",
-          enddate: "2012-04-23T18:25:43.511Z",
-          status: "WAITING"
         }
       ]
     };
   },
-  components: {}
+  components: {},
+
+  computed: {
+    ...mapGetters("scadadata", ["getAlarmList"])
+  }
 };
 </script>
 

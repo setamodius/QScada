@@ -103,18 +103,27 @@
     <q-page-container>
       <router-view />
     </q-page-container>
-    <q-footer class="transparent">
-      <div class="q-pa-none  ">
+    <q-footer class=" transparent">
+      <div class="q-pa-none ">
+        <alarmlist v-if="isAlarmListOpen"></alarmlist>
+      </div>
+      <div class="row">
         <q-btn
-          size="sm"
+          v-if="!isAlarmListOpen"
           color="negative"
           icon="notifications"
-          label="ALARM LIST"
-          class="glossy"
-          rounded
+          class="glossy absolute-bottom "
+          round
           @click="isAlarmListOpen = !isAlarmListOpen"
         />
-        <alarmlist v-if="isAlarmListOpen"></alarmlist>
+        <q-btn
+          v-if="isAlarmListOpen"
+          size="sm"
+          color="grey-7"
+          icon="arrow_drop_down"
+          class="glossy row absolute-bottom"
+          @click="isAlarmListOpen = !isAlarmListOpen"
+        />
       </div>
     </q-footer>
   </q-layout>

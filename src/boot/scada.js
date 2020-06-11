@@ -126,18 +126,6 @@ export class ScadaClient {
         parsedtag[5] === "Online"
       ) {
         if (message.length != 0) {
-          self.innerbus.$emit("TagChanged", {
-            target: topic,
-            message: JSON.parse(message)
-          });
-        }
-      }
-      if (
-        parsedtag[0] === "MATP" &&
-        parsedtag.length == 6 &&
-        parsedtag[5] === "Online"
-      ) {
-        if (message.length != 0) {
           self.innerbus.$emit("VDChanged", {
             virtualdevice: [
               parsedtag[0],
@@ -147,6 +135,28 @@ export class ScadaClient {
             ].join("/"),
             property: parsedtag[4],
             message: JSON.parse(message)
+          });
+        }
+      }
+      if (
+        parsedtag[0] === "MATP" &&
+        parsedtag.length == 6 &&
+        parsedtag[5] === "Alarm"
+      ) {
+        if (message.length != 0) {
+          var jsonmessage = JSON.parse(message);
+          console.log(jsonmessage);
+          self.innerbus.$emit("AlarmReceived", {
+            start: jsonmessage.Value.Start,
+            systemname: parsedtag[1],
+            devicename: parsedtag[3],
+            location: jsonmessage.Value.Location,
+            message: jsonmessage.Value.Message,
+            ackdate: jsonmessage.Value.Acked,
+            ackby: jsonmessage.Value.AckedBy,
+            enddate: jsonmessage.Value.Ended,
+            status: jsonmessage.Value.Status,
+            id: jsonmessage.Value.Id
           });
         }
       }

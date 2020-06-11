@@ -1,14 +1,11 @@
 import Vue from "vue";
 const state = {
   online: {},
-  alarm: {},
+  alarmlist: [],
   virtualdevices: {}
 };
 
 const mutations = {
-  tagChanged(state, payload) {
-    Vue.set(state.online, payload.target, payload.message);
-  },
   VDChanged(state, payload) {
     //state.virtualdevices[payload.virtualdevice][payload.property] =
     //  payload.message;
@@ -31,8 +28,18 @@ const mutations = {
       payload.property,
       payload.message
     );
-
-    //state.virtualdevices.push(payload.virtualdevice);
+  },
+  AlarmReceived(state, payload) {
+    if (state.alarmlist.some(item => item.id == payload.id)) {
+      state.alarmlist = state.alarmlist.map(item => {
+        if (item.id === payload.id) {
+          return Object.assign({}, item, payload);
+        }
+        return item;
+      });
+    } else {
+      state.alarmlist.push(payload);
+    }
   }
 };
 
@@ -42,18 +49,13 @@ const getters = {
   getOnlineValue: state => {
     return state.online;
   },
-  bindToTarget: state => name => {
-    if (state.online[name] == undefined) {
-      console.log(name + " not ready");
-      return { Value: "" };
-    }
-    console.log(state.online[name]);
-    return state.online[name];
-  },
 
   bindToVD: state => address => {
     console.log(state.virtualdevices[address]);
     return state.virtualdevices[address];
+  },
+  getAlarmList: state => {
+    return state.alarmlist;
   }
 };
 export default {

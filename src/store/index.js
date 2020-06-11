@@ -40,12 +40,13 @@ const authPlugin = Store => {
       }
     }
   });
-  bus.$on("TagChanged", data => {
-    Store.commit("scadadata/tagChanged", data);
-  });
   bus.$on("VDChanged", data => {
     console.log(data.virtualdevice);
     Store.commit("scadadata/VDChanged", data);
+  });
+  bus.$on("AlarmReceived", data => {
+    console.log(data);
+    Store.commit("scadadata/AlarmReceived", data);
   });
   bus.$on("ErrorReceived", error => {
     Notify.create({

@@ -128,7 +128,7 @@ export default {
     jetfan: require("components/Jetfan").default
   },
   computed: {
-    ...mapGetters("scadadata", ["getOnlineValue", "bindToTarget", "bindToVD"])
+    ...mapGetters("scadadata", ["getOnlineValue", "bindToVD"])
   }
 };
 </script>
