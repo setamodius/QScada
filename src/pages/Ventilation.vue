@@ -41,14 +41,14 @@
         ></div>
         <div class="tunnel-item tunnel-item-11 mystyle">
           <jetfan
-            fanname="JF1"
-            :virtualdevice="bindToVD('MATP/Ventilation/Jetfan/T4KJF01')"
+            fanname="JF7"
+            :virtualdevice="bindToVD('MATP/Ventilation/Jetfan/T4KJF07')"
           ></jetfan>
         </div>
         <div class="tunnel-item tunnel-item-12 mystyle">
           <jetfan
-            fanname="JF2"
-            :virtualdevice="bindToVD('MATP/Ventilation/Jetfan/T4KJF02')"
+            fanname="JF5"
+            :virtualdevice="bindToVD('MATP/Ventilation/Jetfan/T4KJF05')"
           ></jetfan>
         </div>
         <div class="tunnel-item tunnel-item-13 mystyle">
@@ -59,14 +59,14 @@
         </div>
         <div class="tunnel-item tunnel-item-14 mystyle">
           <jetfan
-            fanname="JF4"
-            :virtualdevice="bindToVD('MATP/Ventilation/Jetfan/T4KJF04')"
+            fanname="JF1"
+            :virtualdevice="bindToVD('MATP/Ventilation/Jetfan/T4KJF01')"
           ></jetfan>
         </div>
         <div class="tunnel-item tunnel-item-21 mystyle">
           <jetfan
-            fanname="JF5"
-            :virtualdevice="bindToVD('MATP/Ventilation/Jetfan/T4KJF05')"
+            fanname="JF8"
+            :virtualdevice="bindToVD('MATP/Ventilation/Jetfan/T4KJF08')"
           ></jetfan>
         </div>
         <div class="tunnel-item tunnel-item-22 mystyle">
@@ -77,14 +77,14 @@
         </div>
         <div class="tunnel-item tunnel-item-23 mystyle">
           <jetfan
-            fanname="JF7"
-            :virtualdevice="bindToVD('MATP/Ventilation/Jetfan/T4KJF07')"
+            fanname="JF4"
+            :virtualdevice="bindToVD('MATP/Ventilation/Jetfan/T4KJF04')"
           ></jetfan>
         </div>
         <div class="tunnel-item tunnel-item-24 mystyle">
           <jetfan
-            fanname="JF8"
-            :virtualdevice="bindToVD('MATP/Ventilation/Jetfan/T4KJF08')"
+            fanname="JF2"
+            :virtualdevice="bindToVD('MATP/Ventilation/Jetfan/T4KJF02')"
           ></jetfan>
         </div>
       </div>

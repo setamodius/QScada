@@ -1,17 +1,50 @@
 <template>
-  <div class="q-pa-none">
-    <q-table
-      card-class="bg-gray-7 text-red glossy"
-      table-class="text-grey-2"
-      dense
-      title=""
-      :data="getAlarmList"
-      :columns="columns"
-      row-key="name"
-      dark
-      color="blue"
-    >
-    </q-table>
+  <div>
+    <div class="q-pa-none">
+      <q-table
+        v-if="isAlarmListOpen"
+        card-class=" text-white "
+        table-class="text-grey-2"
+        dense
+        title="Alarm List"
+        :data="getAlarmList"
+        :columns="columns"
+        row-key="id"
+        dark
+        color="blue"
+        selection="multiple"
+        :selected.sync="selected"
+      >
+        <template v-slot:top="props">
+          <div class="col-2 q-table__title">Alarm List</div>
+
+          <q-space />
+
+          <div class="col"></div>
+
+          <q-btn
+            <q-btn
+            v-if="isAlarmListOpen"
+            size="sm"
+            color="secondary"
+            icon="arrow_drop_down"
+            class="glossy q-pa-none"
+            @click="isAlarmListOpen = !isAlarmListOpen"
+          />
+        </template>
+      </q-table>
+    </div>
+
+    <div class="row">
+      <q-btn
+        v-if="!isAlarmListOpen"
+        color="negative"
+        icon="notifications"
+        class="glossy absolute-bottom-right "
+        round
+        @click="isAlarmListOpen = !isAlarmListOpen"
+      />
+    </div>
   </div>
 </template>
 <script>
@@ -26,6 +59,8 @@ export default {
   },
   data() {
     return {
+      isAlarmListOpen: false,
+      selected: [],
       columns: [
         {
           name: "start",

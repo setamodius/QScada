@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar class="bg-primary glossy text-white">
+      <q-toolbar class="bg-dark glossy text-white">
         <q-btn
           flat
           dense
@@ -16,10 +16,25 @@
         <q-toolbar-title>
           {{ currentRouteName }}
         </q-toolbar-title>
+        <q-item class=" q-pl-none q-pr-none">
+          <q-item-section avatar>
+            <q-avatar size="lg" color="blue" text-color="white"
+              >{{ CurrentUserFullname.getInitials() }}
+              <q-badge v-if="isDisconnected" color="red" floating>D</q-badge>
+              <q-badge v-else color="lime" floating>C</q-badge>
+            </q-avatar>
+          </q-item-section>
 
-        <div>
-          <img src="~assets/logofull.png" style="width:30vw;max-width:150px;" />
-        </div>
+          <q-item-section>
+            <q-item-label>{{ CurrentUserFullname }}</q-item-label>
+            <q-item-label caption>
+              Administrator
+            </q-item-label>
+          </q-item-section>
+          <q-item-section v-if="isConnected" side avatar>
+            <q-icon class="q-pr-none " name="exit_to_app" />
+          </q-item-section>
+        </q-item>
       </q-toolbar>
     </q-header>
 
@@ -30,28 +45,12 @@
       bordered
       :breakpoint="600"
     >
-      <q-item class="glossy q-pa-md">
-        <q-item-section avatar>
-          <q-avatar size="lg" color="blue" text-color="white"
-            >{{ CurrentUserFullname.getInitials() }}
-            <q-badge v-if="isDisconnected" color="red" floating>D</q-badge>
-            <q-badge v-else color="lime" floating>C</q-badge>
-          </q-avatar>
-        </q-item-section>
-
-        <q-item-section>
-          <q-item-label>{{ CurrentUserFullname }}</q-item-label>
-          <q-item-label caption>
-            Administrator
-          </q-item-label>
-        </q-item-section>
-        <q-item-section v-if="isConnected" side avatar>
-          <q-icon class="q-pr-md" name="exit_to_app" />
-        </q-item-section>
-      </q-item>
-
+      <div class=" q-pa-sm">
+        <img src="~assets/logofull.png" style="max-width:150px;" />
+      </div>
       <q-separator />
-      <q-item class="fixed-bottom glossy">
+
+      <q-item class="fixed-bottom bg-warning glossy">
         <q-item-section avatar>
           <q-icon name="settings" />
         </q-item-section>
@@ -104,27 +103,7 @@
       <router-view />
     </q-page-container>
     <q-footer class=" transparent">
-      <div class="q-pa-none ">
-        <alarmlist v-if="isAlarmListOpen"></alarmlist>
-      </div>
-      <div class="row">
-        <q-btn
-          v-if="!isAlarmListOpen"
-          color="negative"
-          icon="notifications"
-          class="glossy absolute-bottom "
-          round
-          @click="isAlarmListOpen = !isAlarmListOpen"
-        />
-        <q-btn
-          v-if="isAlarmListOpen"
-          size="sm"
-          color="grey-7"
-          icon="arrow_drop_down"
-          class="glossy row absolute-bottom"
-          @click="isAlarmListOpen = !isAlarmListOpen"
-        />
-      </div>
+      <alarmlist></alarmlist>
     </q-footer>
   </q-layout>
 </template>
@@ -135,7 +114,6 @@ export default {
   name: "MainLayout",
   data() {
     return {
-      isAlarmListOpen: false,
       leftDrawerOpen: false,
       loginWindowOpen: true,
       menuitems: [
