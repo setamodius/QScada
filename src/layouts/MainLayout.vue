@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar class="bg-dark glossy text-white">
+      <q-toolbar class=" glossy ">
         <q-btn
           flat
           dense
@@ -45,12 +45,12 @@
       bordered
       :breakpoint="600"
     >
-      <div class=" q-pa-sm">
+      <div class=" q-pa-sm glossy">
         <img src="~assets/logofull.png" style="max-width:150px;" />
       </div>
       <q-separator />
 
-      <q-item class="fixed-bottom bg-warning glossy">
+      <q-item class="fixed-bottom bg-secondary glossy">
         <q-item-section avatar>
           <q-icon name="settings" />
         </q-item-section>

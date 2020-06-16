@@ -17,7 +17,7 @@ export class ScadaClient {
       functionname +
       "/req/" +
       uid;
-    console.log(topic);
+
     this.innerclient.publish(topic, data, {
       qos: 2,
       retain: false
@@ -145,7 +145,6 @@ export class ScadaClient {
       ) {
         if (message.length != 0) {
           var jsonmessage = JSON.parse(message);
-          console.log(jsonmessage);
           self.innerbus.$emit("AlarmReceived", {
             start: jsonmessage.Value.Start,
             systemname: parsedtag[1],
@@ -156,7 +155,8 @@ export class ScadaClient {
             ackby: jsonmessage.Value.AckedBy,
             enddate: jsonmessage.Value.Ended,
             status: jsonmessage.Value.Status,
-            id: jsonmessage.Value.Id
+            id: jsonmessage.Value.Id,
+            priority: jsonmessage.Value.Priority
           });
         }
       }

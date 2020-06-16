@@ -11,7 +11,6 @@ Vue.use(Vuex);
 let getcurrentuser;
 const authPlugin = Store => {
   bus.$on("WorkerStatusChanged", data => {
-    console.log("status changed" + data);
     Store.commit("auth/updateStatus", data.isconnected);
     Store.commit("auth/updateConnectingStatus", false);
     Loading.hide();
@@ -41,11 +40,9 @@ const authPlugin = Store => {
     }
   });
   bus.$on("VDChanged", data => {
-    console.log(data.virtualdevice);
     Store.commit("scadadata/VDChanged", data);
   });
   bus.$on("AlarmReceived", data => {
-    console.log(data);
     Store.commit("scadadata/AlarmReceived", data);
   });
   bus.$on("ErrorReceived", error => {

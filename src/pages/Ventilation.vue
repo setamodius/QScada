@@ -1,5 +1,5 @@
 <template>
-  <q-page class="standartbackcolor">
+  <q-page>
     <div class="main-container ">
       <div class=" main-item main-top  ">
         <h4>
@@ -134,9 +134,6 @@ export default {
 </script>
 
 <style scoped>
-.standartbackcolor {
-  background-color: #1a1a1a;
-}
 .main-container {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
@@ -213,5 +210,21 @@ export default {
 }
 .mystyle {
   margin: 0%;
+}
+
+@keyframes borderBlink {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: red;
+  }
+}
+
+.borderBlinking {
+  border: 4px solid red;
+  -webkit-animation: borderBlink 1s step-end infinite;
+  animation: borderBlink 1s step-end infinite;
 }
 </style>

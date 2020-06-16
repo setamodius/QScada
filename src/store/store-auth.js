@@ -7,7 +7,6 @@ const state = {
 
 const mutations = {
   updateStatus(state, payload) {
-    console.log(payload);
     state.isConnected = payload;
   },
   updateConnectingStatus(state, payload) {

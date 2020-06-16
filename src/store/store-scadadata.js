@@ -51,7 +51,6 @@ const getters = {
   },
 
   bindToVD: state => address => {
-    console.log(state.virtualdevices[address]);
     return state.virtualdevices[address];
   },
   getAlarmList: state => {

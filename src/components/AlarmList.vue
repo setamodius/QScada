@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="getAlarmList.length">
     <div class="q-pa-none">
       <q-table
         v-if="isAlarmListOpen"
@@ -15,12 +15,31 @@
         selection="multiple"
         :selected.sync="selected"
       >
+        <template v-slot:body-cell="props">
+          <q-td :props="props">
+            <div
+              :class="
+                props.row.priority == 5
+                  ? 'priority-5'
+                  : props.row.priority == 4
+                  ? 'priority-4'
+                  : props.row.priority == 3
+                  ? 'priority-3'
+                  : props.row.priority == 2
+                  ? 'priority-2'
+                  : props.row.priority == 1
+                  ? 'priority-1'
+                  : 'text-white'
+              "
+            >
+              {{ props.value }}
+            </div>
+          </q-td>
+        </template>
         <template v-slot:top="props">
           <div class="col-2 q-table__title">Alarm List</div>
 
           <q-space />
-
-          <div class="col"></div>
 
           <q-btn
             <q-btn
@@ -35,12 +54,22 @@
       </q-table>
     </div>
 
-    <div class="row">
+    <div v-if="!isAlarmListOpen" class="row priority-bg-4">
+      <q-bar v-if="firstAlarm" class=" ">
+        <q-btn class="glossy" icon="notifications" label="ACK" />
+        <div class="q-px-md">{{ firstAlarm.start }}</div>
+        <div class="q-px-md">{{ firstAlarm.systemname }}</div>
+        <div class="q-px-md">{{ firstAlarm.location }}</div>
+        <div class="q-px-md">{{ firstAlarm.devicename }}</div>
+        <div class="q-px-md">{{ firstAlarm.message }}</div>
+        <q-space />
+      </q-bar>
+
       <q-btn
         v-if="!isAlarmListOpen"
-        color="negative"
-        icon="notifications"
-        class="glossy absolute-bottom-right "
+        color="secondary"
+        icon="list"
+        class="glossy absolute-bottom-right q-ma-sm"
         round
         @click="isAlarmListOpen = !isAlarmListOpen"
       />
@@ -62,6 +91,13 @@ export default {
       isAlarmListOpen: false,
       selected: [],
       columns: [
+        {
+          name: "priority",
+          label: "Priority",
+          field: "priority",
+          align: "center",
+          sortable: true
+        },
         {
           name: "start",
           required: true,
@@ -136,10 +172,68 @@ export default {
   components: {},
 
   computed: {
-    ...mapGetters("scadadata", ["getAlarmList"])
+    ...mapGetters("scadadata", ["getAlarmList"]),
+    firstAlarm: function() {
+      if (this.getAlarmList[0] === undefined) {
+        return null;
+      } else {
+        return this.getAlarmList[0];
+      }
+    }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped lang="scss">
+@keyframes example {
+  0% {
+    color: red;
+  }
+
+  100% {
+    color: darkred;
+  }
+}
+
+.priority-bg-1 {
+  background-color: $priority-color-1;
+}
+
+.priority-bg-2 {
+  background-color: $priority-color-2;
+}
+
+.priority-bg-3 {
+  background-color: $priority-color-3;
+}
+
+.priority-bg-4 {
+  background-color: $priority-color-4;
+}
+
+.priority-bg-5 {
+  background-color: $priority-color-5;
+}
+
+.priority-1 {
+  color: $priority-color-1;
+}
+.priority-2 {
+  color: $priority-color-2;
+}
+.priority-3 {
+  color: $priority-color-3;
+}
+.priority-4 {
+  color: $priority-color-4;
+}
+.priority-5 {
+  color: $priority-color-5;
+  font-weight: bold;
+  animation-name: example;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+</style>
