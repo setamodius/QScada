@@ -3,8 +3,6 @@
   "version": "0.0.1",
   "description": "A Web Version of Savronik SCADA",
   "productName": "Quick Scada",
-  "cordovaId": "org.cordova.quasar.app",
-  "capacitorId": "",
   "author": "Kerem Bilgiçer <krmbil@windowslive.com>",
   "private": true,
   "scripts": {
@@ -17,6 +15,7 @@
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "connect-history-api-fallback": "^1.6.0",
+    "core-js": "^3.0.0",
     "express": "^4.17.1",
     "leaflet": "^1.6.0",
     "mqtt": "^4.1.0",
@@ -26,7 +25,7 @@
     "vue2-leaflet": "^2.5.2"
   },
   "devDependencies": {
-    "@quasar/app": "^1.0.0",
+    "@quasar/app": "^2.0.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.0",
@@ -43,9 +42,15 @@
     "yarn": ">= 1.21.1"
   },
   "browserslist": [
-    "last 1 version, not dead, ie >= 11"
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions"
   ],
-  "resolutions": {
-    "@babel/parser": "7.7.5"
-  }
+  "resolutions": {}
 }

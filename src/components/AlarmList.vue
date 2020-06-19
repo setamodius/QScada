@@ -54,7 +54,7 @@
       </q-table>
     </div>
 
-    <div v-if="!isAlarmListOpen" class="row priority-bg-4">
+    <div v-if="!isAlarmListOpen" class="row priority-bg-2">
       <q-bar v-if="firstAlarm" class=" ">
         <q-btn class="glossy" icon="notifications" label="ACK" />
         <div class="q-px-md">{{ firstAlarm.start }}</div>
@@ -177,7 +177,18 @@ export default {
       if (this.getAlarmList[0] === undefined) {
         return null;
       } else {
-        return this.getAlarmList[0];
+        console.log(
+          this.getAlarmList
+            .filter(item => item.status == 0)
+            .sort(function(a, b) {
+              return a.priority - b.priority;
+            })
+        );
+        return this.getAlarmList
+          .filter(item => item.status == 0)
+          .sort(function(a, b) {
+            return a.priority - b.priortiy;
+          })[0];
       }
     }
   }
@@ -197,23 +208,23 @@ export default {
 }
 
 .priority-bg-1 {
-  background-color: $priority-color-1;
+  background-color: $priority-bg-color-1;
 }
 
 .priority-bg-2 {
-  background-color: $priority-color-2;
+  background-color: $priority-bg-color-2;
 }
 
 .priority-bg-3 {
-  background-color: $priority-color-3;
+  background-color: $priority-bg-color-3;
 }
 
 .priority-bg-4 {
-  background-color: $priority-color-4;
+  background-color: $priority-bg-color-4;
 }
 
 .priority-bg-5 {
-  background-color: $priority-color-5;
+  background-color: $priority-bg-color-5;
 }
 
 .priority-1 {

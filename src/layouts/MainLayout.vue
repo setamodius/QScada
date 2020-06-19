@@ -182,9 +182,9 @@ export default {
 </script>
 <style lang="sass">
 .my-setting-link
-  color: white
+
   background: #F2C037
 .my-menu-link
-  color: white
-  background: #26A69A
+
+  background: $secondary
 </style>
